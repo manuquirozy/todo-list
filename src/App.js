@@ -39,6 +39,14 @@ function App() {
     setToDos(toDos.filter((toDo) => toDo.id !== id));
   }
 
+  function editToDo(id, state, text) {
+    let toDosCopy = [...toDos];
+    toDosCopy.forEach((toDo) => {
+      toDo.id === id && (toDo.text = text);
+    });
+    setToDos(toDosCopy);
+  }
+
   useEffect(() => {
     filter === "All"
       ? setActive(toDos)
@@ -48,7 +56,12 @@ function App() {
   return (
     <div className="App">
       <Header handleFilter={handleFilter} handleSubmit={handleSubmit} />
-      <List toDos={active} toggleState={toggleState} deleteToDo={deleteToDo} />
+      <List
+        toDos={active}
+        toggleState={toggleState}
+        deleteToDo={deleteToDo}
+        editToDo={editToDo}
+      />
     </div>
   );
 }

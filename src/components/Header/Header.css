@@ -44,7 +44,7 @@ li {
   cursor: pointer;
 }
 
-form {
+.HeaderForm {
   display: flex;
   flex-direction: row;
   justify-content: center;

@@ -5,7 +5,7 @@ import ToDo from "../ToDo/ToDo";
 import "./List.css";
 
 export default function List(props) {
-  const { toDos, toggleState, deleteToDo } = props;
+  const { toDos, toggleState, deleteToDo, editToDo } = props;
 
   return (
     <div className="ListContainer">
@@ -13,10 +13,10 @@ export default function List(props) {
         ? toDos.map((toDo) => {
             return (
               <ToDo
-                state={toDo.state}
-                id={toDo.id}
+                toDo={toDo}
                 toggleState={toggleState}
                 deleteToDo={deleteToDo}
+                editToDo={editToDo}
                 key={toDo.id}
               >
                 {toDo.text}

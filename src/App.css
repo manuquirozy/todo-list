@@ -3,4 +3,5 @@
   background-image: url("assets/crumpled-paper.jpg");
   background-size: cover;
   height: 100vh;
+  position: fixed;
 }

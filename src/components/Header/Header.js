@@ -31,6 +31,7 @@ export default function Header(props) {
         </ul>
       </div>
       <form
+        className="HeaderForm"
         onSubmit={(event) => {
           handleSubmit(event);
           setText("");
