@@ -28,13 +28,15 @@ function App() {
   }
 
   function handleToggleState(id) {
-    let tasksCopy = [...tasks];
-    tasksCopy.forEach((task) => {
-      task.id === id &&
-        (task.state === TODO ? (task.state = DONE) : (task.state = TODO));
-    });
-    setTasks(tasksCopy);
-    //setTasks(tasks.map(task => task.id === id && (task.state === TODO ? (task.state = DONE) : (task.state = TODO))));
+    setTasks([
+      ...tasks.map((task) =>
+        task.id === id
+          ? task.state === TODO
+            ? { ...task, state: DONE }
+            : { ...task, state: TODO }
+          : { ...task }
+      ),
+    ]);
   }
 
   function handleDeleteTask(id) {
@@ -42,11 +44,11 @@ function App() {
   }
 
   function handleEditTask(id, state, text) {
-    let tasksCopy = [...tasks];
-    tasksCopy.forEach((task) => {
-      task.id === id && (task.text = text);
-    });
-    setTasks(tasksCopy);
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, text: text } : { ...task }
+      )
+    );
   }
 
   useEffect(() => {
