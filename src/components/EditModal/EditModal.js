@@ -3,15 +3,15 @@ import React, { useEffect, useState } from "react";
 import "./EditModal.css";
 
 export default function EditModal(props) {
-  const { originalText, handleSubmit } = props;
+  const { originalText, onEditSubmit } = props;
   const [text, setText] = useState("");
 
-  function handleChange(event) {
-    setText(event.target.value);
+  function handleInputChange(e) {
+    setText(e.target.value);
   }
 
   useEffect(() => {
-    setText(originalText)
+    setText(originalText);
   }, [originalText]);
 
   return (
@@ -20,8 +20,8 @@ export default function EditModal(props) {
         <h1>Edit task</h1>
         <form
           className="EditForm"
-          onSubmit={(event) => {
-            handleSubmit(event);
+          onSubmit={(e) => {
+            onEditSubmit(e);
             setText("");
           }}
         >
@@ -29,7 +29,7 @@ export default function EditModal(props) {
             className="Input EditField"
             type="text"
             value={text}
-            onChange={handleChange}
+            onChange={handleInputChange}
           />
           <input className="Button Edit" type="submit" value="Edit" />
         </form>

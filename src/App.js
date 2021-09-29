@@ -4,63 +4,65 @@ import "./App.css";
 
 import List from "./components/List/List";
 import Header from "./components/Header/Header";
+import { TODO, DONE, ALL } from "./utils/constants";
 
 function App() {
-  const [filter, setFilter] = useState("All");
-  const [toDos, setToDos] = useState([]);
+  const [filter, setFilter] = useState(ALL);
+  const [tasks, setTasks] = useState([]);
   const [active, setActive] = useState([]);
 
   function handleFilter(filter) {
     setFilter(filter);
   }
 
-  function handleSubmit(event) {
+  function handleAddTask(event) {
     event.preventDefault();
-    setToDos((prevToDos) => [
-      ...prevToDos,
+    setTasks((prevTasks) => [
+      ...prevTasks,
       {
         text: event.target[0].value,
-        state: "ToDo",
+        state: TODO,
         id: Math.random().toString(36).substr(2, 9),
       },
     ]);
   }
 
-  function toggleState(id) {
-    let toDosCopy = [...toDos];
-    toDosCopy.forEach((toDo) => {
-      toDo.id === id &&
-        (toDo.state === "ToDo" ? (toDo.state = "Done") : (toDo.state = "ToDo"));
+  function handleToggleState(id) {
+    let tasksCopy = [...tasks];
+    tasksCopy.forEach((task) => {
+      task.id === id &&
+        (task.state === TODO ? (task.state = DONE) : (task.state = TODO));
     });
-    setToDos(toDosCopy);
+    setTasks(tasksCopy);
+    //setTasks(tasks.map(task => task.id === id && (task.state === TODO ? (task.state = DONE) : (task.state = TODO))));
   }
 
-  function deleteToDo(id) {
-    setToDos(toDos.filter((toDo) => toDo.id !== id));
+  function handleDeleteTask(id) {
+    setTasks(tasks.filter((task) => task.id !== id));
   }
 
-  function editToDo(id, state, text) {
-    let toDosCopy = [...toDos];
-    toDosCopy.forEach((toDo) => {
-      toDo.id === id && (toDo.text = text);
+  function handleEditTask(id, state, text) {
+    let tasksCopy = [...tasks];
+    tasksCopy.forEach((task) => {
+      task.id === id && (task.text = text);
     });
-    setToDos(toDosCopy);
+    setTasks(tasksCopy);
   }
 
   useEffect(() => {
-    filter === "All"
-      ? setActive(toDos)
-      : setActive(toDos.filter((toDo) => toDo.state === filter));
-  }, [toDos, filter]);
+    filter === ALL
+      ? setActive(tasks)
+      : setActive(tasks.filter((task) => task.state === filter));
+  }, [tasks, filter]);
 
   return (
     <div className="App">
-      <Header handleFilter={handleFilter} handleSubmit={handleSubmit} />
+      <Header onFilter={handleFilter} onTaskAdd={handleAddTask} />
       <List
-        toDos={active}
-        toggleState={toggleState}
-        deleteToDo={deleteToDo}
-        editToDo={editToDo}
+        tasks={active}
+        onStateToggle={handleToggleState}
+        onTaskDelete={handleDeleteTask}
+        onTaskEdit={handleEditTask}
       />
     </div>
   );

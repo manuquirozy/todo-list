@@ -1,26 +1,26 @@
 import React from "react";
 
-import ToDo from "../ToDo/ToDo";
+import Task from "../Task/Task";
 
 import "./List.css";
 
 export default function List(props) {
-  const { toDos, toggleState, deleteToDo, editToDo } = props;
+  const { tasks, onStateToggle, onTaskDelete, onTaskEdit } = props;
 
   return (
     <div className="ListContainer">
-      {toDos.length > 0
-        ? toDos.map((toDo) => {
+      {tasks.length > 0
+        ? tasks.map((task) => {
             return (
-              <ToDo
-                toDo={toDo}
-                toggleState={toggleState}
-                deleteToDo={deleteToDo}
-                editToDo={editToDo}
-                key={toDo.id}
+              <Task
+                task={task}
+                onStateToggle={onStateToggle}
+                onTaskDelete={onTaskDelete}
+                onTaskEdit={onTaskEdit}
+                key={task.id}
               >
-                {toDo.text}
-              </ToDo>
+                {task.text}
+              </Task>
             );
           })
         : "There are no tasks to show!"}

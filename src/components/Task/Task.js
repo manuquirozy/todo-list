@@ -5,41 +5,42 @@ import CircleIcon from "../../assets/CircleIcon";
 import TickIcon from "../../assets/TickIcon";
 import DeleteIcon from "../../assets/DeleteIcon";
 import EditIcon from "../../assets/EditIcon";
+import { CIRCLE, TICK, TODO } from "../../utils/constants";
 
-import "./ToDo.css";
+import "./Task.css";
 
-export default function Menu(props) {
-  const { toDo, toggleState, deleteToDo, editToDo } = props;
+export default function Task(props) {
+  const { task, onStateToggle, onTaskDelete, onTaskEdit } = props;
 
-  const [icon, setIcon] = useState("Circle");
+  const [icon, setIcon] = useState(CIRCLE);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    toDo.state === "ToDo" ? setIcon("Circle") : setIcon("Tick");
-  }, [toDo, icon]);
+    task.state === TODO ? setIcon(CIRCLE) : setIcon(TICK);
+  }, [task, icon]);
 
-  function handleSubmit(event) {
+  function handleEditSubmit(event) {
     event.preventDefault();
     setOpen(false);
-    editToDo(toDo.id, toDo.state, event.target[0].value);
+    onTaskEdit(task.id, task.state, event.target[0].value);
   }
 
   return (
-    <div className="ToDo">
-      {icon === "Circle" ? (
+    <div className="Task">
+      {icon === CIRCLE ? (
         <CircleIcon
           className="Icon"
           onClick={() => {
-            setIcon("Tick");
-            toggleState(toDo.id);
+            setIcon(TICK);
+            onStateToggle(task.id);
           }}
         />
       ) : (
         <TickIcon
           className="Icon"
           onClick={() => {
-            setIcon("Circle");
-            toggleState(toDo.id);
+            setIcon(CIRCLE);
+            onStateToggle(task.id);
           }}
         />
       )}
@@ -53,10 +54,12 @@ export default function Menu(props) {
       <DeleteIcon
         className="Icon"
         onClick={() => {
-          deleteToDo(toDo.id);
+          onTaskDelete(task.id);
         }}
       />
-      {open && <EditModal originalText={toDo.text} handleSubmit={handleSubmit} />}
+      {open && (
+        <EditModal originalText={task.text} onEditSubmit={handleEditSubmit} />
+      )}
     </div>
   );
 }
