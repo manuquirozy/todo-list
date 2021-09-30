@@ -2,12 +2,10 @@ import React, { useState } from "react";
 
 import "./NewTask.css";
 
-export default function Header(props) {
-  const { onTaskAdd } = props;
+export default function NewTask({ onTaskAdd = () => {}, isEdit=false }) {
   const [text, setText] = useState("");
 
   function handleInputChange(e) {
-    e.preventDefault();
     setText(e.target.value);
   }
 
@@ -15,18 +13,19 @@ export default function Header(props) {
     <form
       className="HeaderForm"
       onSubmit={(e) => {
-        onTaskAdd(e);
+        e.preventDefault()
+        onTaskAdd(text);
         setText("");
       }}
     >
-      <label>Add task</label>
+      {!isEdit && <label>Add task</label>}
       <input
         className="Input"
         type="text"
         value={text}
         onChange={handleInputChange}
       />
-      <input className="Button" type="submit" value="Add" />
+      <input className="Button" type="submit" value={!isEdit ? 'Add' : 'Update'} />
     </form>
   );
 }

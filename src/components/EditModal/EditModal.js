@@ -1,38 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import "./EditModal.css";
+import NewTask from "../NewTask/NewTask"
 
-export default function EditModal(props) {
-  const { originalText, onEditSubmit } = props;
-  const [text, setText] = useState("");
+export default function EditModal({ task, onEditSubmit }) {
 
-  function handleInputChange(e) {
-    setText(e.target.value);
+  function handleEditSubmit(text) {
+    onEditSubmit(task.id, text)
   }
-
-  useEffect(() => {
-    setText(originalText);
-  }, [originalText]);
 
   return (
     <div className="Window">
       <div className="EditContainer">
         <h1>Edit task</h1>
-        <form
-          className="EditForm"
-          onSubmit={(e) => {
-            onEditSubmit(e);
-            setText("");
-          }}
-        >
-          <input
-            className="Input EditField"
-            type="text"
-            value={text}
-            onChange={handleInputChange}
-          />
-          <input className="Button Edit" type="submit" value="Edit" />
-        </form>
+        <NewTask onTaskAdd={(text) => handleEditSubmit(text)} isEdit={true}/>
       </div>
     </div>
   );

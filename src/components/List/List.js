@@ -18,9 +18,7 @@ export default function List(props) {
                 onTaskDelete={onTaskDelete}
                 onTaskEdit={onTaskEdit}
                 key={task.id}
-              >
-                {task.text}
-              </Task>
+              ></Task>
             );
           })
         : "There are no tasks to show!"}

@@ -15,12 +15,11 @@ function App() {
     setFilter(filter);
   }
 
-  function handleAddTask(event) {
-    event.preventDefault();
+  function handleAddTask(task) {
     setTasks((prevTasks) => [
       ...prevTasks,
       {
-        text: event.target[0].value,
+        text: task,
         state: TODO,
         id: Math.random().toString(36).substr(2, 9),
       },
@@ -30,11 +29,9 @@ function App() {
   function handleToggleState(id) {
     setTasks([
       ...tasks.map((task) =>
-        task.id === id
-          ? task.state === TODO
-            ? { ...task, state: DONE }
-            : { ...task, state: TODO }
-          : { ...task }
+      task.id === id
+        ? { ...task, state: task.state === DONE ? TODO : DONE }
+        : { ...task }
       ),
     ]);
   }
@@ -43,7 +40,8 @@ function App() {
     setTasks(tasks.filter((task) => task.id !== id));
   }
 
-  function handleEditTask(id, state, text) {
+  function handleEditTask(id, text) {
+    console.log({id, text})
     setTasks(
       tasks.map((task) =>
         task.id === id ? { ...task, text: text } : { ...task }

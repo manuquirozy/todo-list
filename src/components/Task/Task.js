@@ -9,9 +9,7 @@ import { CIRCLE, TICK, TODO } from "../../utils/constants";
 
 import "./Task.css";
 
-export default function Task(props) {
-  const { task, onStateToggle, onTaskDelete, onTaskEdit } = props;
-
+export default function Task({ task, onStateToggle, onTaskDelete, onTaskEdit }) {
   const [icon, setIcon] = useState(CIRCLE);
   const [open, setOpen] = useState(false);
 
@@ -19,10 +17,10 @@ export default function Task(props) {
     task.state === TODO ? setIcon(CIRCLE) : setIcon(TICK);
   }, [task, icon]);
 
-  function handleEditSubmit(event) {
-    event.preventDefault();
+  function handleEditSubmit(id, text) {
+    console.log({id, text})
     setOpen(false);
-    onTaskEdit(task.id, task.state, event.target[0].value);
+    onTaskEdit(id, text);
   }
 
   return (
@@ -44,7 +42,7 @@ export default function Task(props) {
           }}
         />
       )}
-      {props.children}
+      { task.text }
       <EditIcon
         className="Icon"
         onClick={() => {
@@ -58,7 +56,7 @@ export default function Task(props) {
         }}
       />
       {open && (
-        <EditModal originalText={task.text} onEditSubmit={handleEditSubmit} />
+        <EditModal task={task} onEditSubmit={handleEditSubmit} />
       )}
     </div>
   );
