@@ -1,0 +1,22 @@
+.HeaderForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  margin: 10px;
+}
+
+.Input {
+  border: 2px solid #e87c85;
+  border-radius: 5px;
+}
+
+.Button {
+  margin: 10px;
+  background-color: #57917f;
+  border: 2px solid black;
+  border-radius: 5px;
+}

@@ -1,0 +1,36 @@
+.Window {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 88px;
+  overflow: hidden !important;
+}
+
+.EditContainer {
+  background-color: white;
+  width: 30vw;
+  height: 150px;
+  margin: auto;
+  padding: 20px;
+  border: 2px solid black;
+  border-radius: 10px;
+  position: relative;
+  top: 50px;
+}
+
+.EditField {
+  width: 100%;
+}
+
+.EditForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Edit {
+  padding: 0 20px;
+  width: 100px;
+}
